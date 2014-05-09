@@ -51,11 +51,12 @@ module Guard
 
     def run_on_changes(paths)
       paths.each do |path|
+        jst_var_name = path.gsub('.js.hamlc', '').gsub(@options[:input], '')
         basename = File.basename(path, '.js.hamlc')
         output_file = get_output(path)
         FileUtils.mkdir_p File.dirname(output_file)
         options = [
-          basename,
+          jst_var_name,
           File.read(path),
           jst = true,
           namespace = @options[:namespace],
